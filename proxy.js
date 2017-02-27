@@ -4,9 +4,7 @@ let fetch = require('isomorphic-fetch')
 
 app.use(cors())
 
-
-const API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
-const REQUEST_URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2017-02-26&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723'
+const REQUEST_URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2017-02-27&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723'
 
 app.get('/api', (req, res) => {
     fetch(REQUEST_URL)

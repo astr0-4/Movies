@@ -1,12 +1,12 @@
 import React from 'react'
-// import VideoListItem from './video_list_item'
 import VideoDetail from './video_detail'
 
 const VideoList = (props) => {
-	const videoItems = props.videos.map((video) => {
-		return <VideoDetail 
-		video={video} />
-	})
+	if (props.trailers) {
+		const videoItems = props.trailers.map((trailer) => {
+			return <VideoDetail 
+			video={trailer} />
+		})
 	return (
 		<div className="col-lg-11 col-centered">    
 			<ul>
@@ -14,6 +14,7 @@ const VideoList = (props) => {
 			</ul>
 		</div>
 	)
+	}
 }
 
 export default VideoList

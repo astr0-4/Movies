@@ -5,11 +5,11 @@ const VideoList = (props) => {
 	if (props.trailers) {
 		const videoItems = props.trailers.map((trailer) => {
 			return <VideoDetail 
-			video={trailer} />
+			video={trailer} key={trailer.id.videoId}/>
 		})
 	return (
 		<div>    
-			<ul class="list-container">
+			<ul className="list-container">
 				{videoItems}
 			</ul>
 		</div>

@@ -64,12 +64,11 @@ class App extends Component {
 		if(this.state.trailers) {
 			return (
 				<div>
-					{<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />}
+					<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
-			)
-				}
-				else {
+					)
+				} else {
 					return (
 						<div>Loading...</div>
 					)

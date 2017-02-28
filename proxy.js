@@ -10,10 +10,6 @@ app.get('/api', (req, res) => {
     fetch(REQUEST_URL)
         .then(response => response.json() )
         .then(responseData => {
-			// var movieTitles = movies.map((movie) => {
-			//   console.log(movie.title)
-            // })
-
         
             res.json(responseData)
         })
@@ -25,6 +21,5 @@ app.get('/api', (req, res) => {
 app.get('/', (req, res) => {
   res.send('its alive!')
 })
-
 
 app.listen(5000, () => { console.log('listening! ⚡️') })

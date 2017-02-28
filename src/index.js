@@ -5,11 +5,12 @@ import YTSearch from 'youtube-api-search'
 import SearchBar from './components/search_bar'
 import VideoList from './components/video_list'
 import VideoDetail from './components/video_detail'
-import FeedParser from 'feedParser'
 import Header from './components/header'
 
-const REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723`
-const API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
+const BASE_REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}`
+const POSTAL_CODE = `&zip=M5V+3M6&`
+const ST_API_KEY = `api_key=g9rwkqkcx8u5t5b978as7723`
+const YT_API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
 
 function formatDate() {
     var d = new Date(),
@@ -32,10 +33,11 @@ class App extends Component {
 		}
 	}
 
-	getTrailers() {
+	getTrailers(postalCode) {
 		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
 		// return 
-    	fetch(REQUEST_URL)
+		let url = BASE_REQUEST_URL + "&zip=" + postalCode + "&" + ST_API_KEY
+    	fetch(url)
 			.then(response => response.json() )
 			.then(responseData => {
 				var titles = responseData.map((movie) => {
@@ -57,7 +59,7 @@ class App extends Component {
 
 	youTubeObjects(titles) {
 		const promises = titles.map(title => {
-			return fetch(`https://www.googleapis.com/youtube/v3/search/?part=snippet&key=${API_KEY}&q=${title}&type=video`)
+			return fetch(`https://www.googleapis.com/youtube/v3/search/?part=snippet&key=${YT_API_KEY}&q=${title}&type=video`)
 				.then(response => response.json())
 				.then(data => data.items[0])
 		})
@@ -65,14 +67,18 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this.getTrailers()
+		this.trailerSearch("V2B+4A6")
+	}
+
+	trailerSearch(postalCode) {
+		this.getTrailers(postalCode)
 	}
 
 	render() {
 		if (this.state.trailers) {
 			return (
 				<div>
-					<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />
+					<SearchBar onSearchTermChanged={postalCode => this.trailerSearch(postalCode)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
 				)

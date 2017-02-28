@@ -8,8 +8,20 @@ import VideoDetail from './components/video_detail'
 import FeedParser from 'feedParser'
 import Header from './components/header'
 
-const REQUEST_URL = 'http://localhost:5000/api'
+const REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723`
 const API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
+
+function formatDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
 class App extends Component {
 	constructor(props) {
@@ -20,58 +32,55 @@ class App extends Component {
 		}
 	}
 
-	trailers() {
+	getTrailers() {
 		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
 		// return 
-
     	fetch(REQUEST_URL)
-        .then(response => response.json() )
-        .then(responseData => {
-			var titles = responseData.map((movie) => {
-				return movie.title
+			.then(response => response.json() )
+			.then(responseData => {
+				var titles = responseData.map((movie) => {
+					return movie.title
+				})
+				return titles
 			})
-			return titles
-        })
-		.then(movies => {
-			var movieTrailers = movies.map((movie) => {
-				return movie + " Trailer"
+			.then(movies => {
+				var movieTrailers = movies.map((movie) => {
+					return movie + " Trailer"
+				})
+				var theMovies = this.youTubeObjects(movieTrailers)
+				this.setState({trailers: theMovies})
 			})
-			var theMovies = this.youTubeObjects(movieTrailers)
-			this.setState({trailers: theMovies})
-		})
-        .catch(error => {
-            console.log('Error: ', error)
-        })
+			.catch(error => {
+				console.log('Error: ', error)
+			})
   }
 
 	youTubeObjects(titles) {
-		var trailers = []
-		titles.map((title) => {
-			YTSearch({key: API_KEY, term: title}, (videos) => {
-				trailers.push(videos[0])
-				this.setState({trailers: trailers})		
-			})
-			return trailers
-		})	
+		const promises = titles.map(title => {
+			return fetch(`https://www.googleapis.com/youtube/v3/search/?part=snippet&key=${API_KEY}&q=${title}&type=video`)
+				.then(response => response.json())
+				.then(data => data.items[0])
+		})
+		Promise.all(promises).then(items => this.setState({trailers: items}))
 	}
 
 	componentDidMount() {
-		this.trailers()
+		this.getTrailers()
 	}
 
 	render() {
-		if(this.state.trailers) {
+		if (this.state.trailers) {
 			return (
 				<div>
 					<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
-					)
-				} else {
-					return (
-						<div>Loading...</div>
-					)
-				}
+				)
+			} else {
+				return (
+					<div>Loading...</div>
+				)
+			}
 		}
 }
 

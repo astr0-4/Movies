@@ -8,7 +8,7 @@ import VideoDetail from './components/video_detail'
 import FeedParser from 'feedParser'
 import Header from './components/header'
 
-const REQUEST_URL = 'http://localhost:5000/api'
+const REQUEST_URL = 'http://localhost:5000/api/'
 const API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
 
 class App extends Component {

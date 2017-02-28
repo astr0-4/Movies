@@ -4,13 +4,8 @@ let fetch = require('isomorphic-fetch')
 
 app.use(cors())
 
-const REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723`
-
-var today = new Date()
-console.log(today)
-var date = formatDate()
-console.log(date)
-
+const BASE_REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}`
+const API_KEY = `api_key=g9rwkqkcx8u5t5b978as7723`
 function formatDate() {
     var d = new Date(),
         month = '' + (d.getMonth() + 1),
@@ -22,12 +17,13 @@ function formatDate() {
 
     return [year, month, day].join('-');
 }
-
-app.get('/api', (req, res) => {
-    fetch(REQUEST_URL)
+var zipCode = 'zip=M5V3M6'
+app.get('/api/zip=M5V3M6+/', (req, res) => {
+    // console.log(req)
+    var url = BASE_REQUEST_URL + '&' + zipCode + '&' + API_KEY
+    fetch(url)
         .then(response => response.json() )
         .then(responseData => {
-        
             res.json(responseData)
         })
         .catch(error => {

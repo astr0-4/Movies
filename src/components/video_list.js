@@ -13,8 +13,7 @@ const VideoList = (props) => {
 				{videoItems}
 			</ul>
 		</div>
-	)
-	}
+	)}
 }
 
 export default VideoList

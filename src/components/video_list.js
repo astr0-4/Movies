@@ -8,8 +8,8 @@ const VideoList = (props) => {
 			video={trailer} />
 		})
 	return (
-		<div className="col-lg-11 col-centered">    
-			<ul>
+		<div>    
+			<ul class="list-container">
 				{videoItems}
 			</ul>
 		</div>

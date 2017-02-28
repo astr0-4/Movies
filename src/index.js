@@ -22,76 +22,59 @@ class App extends Component {
 
 	trailers() {
 		this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		
 		return 
 
     	fetch(REQUEST_URL)
         .then(response => response.json() )
         .then(responseData => {
-			console.log(responseData)
 			var titles = responseData.map((movie) => {
 				return movie.title
 			})
 			return titles
         })
 		.then(movies => {
-			console.log(movies)
-			var theMovies = this.ts(movies)
-			console.log(theMovies)
-			this.setState(theMovies)
-			return theMovies 
+			var movieTrailers = movies.map((movie) => {
+				return movie + " Trailer"
+			})
+			var theMovies = this.youTubeObjects(movieTrailers)
+			this.setState({trailers: theMovies})
 		})
         .catch(error => {
             console.log('Error: ', error)
         })
   }
 
-	videoSearch(term) {
-		var vid;
-	 	YTSearch({key: API_KEY, term: term}, (videos) => {
-			 vid = videos[0]
-			 console.log("vid:" + JSON.stringify(vid))
-		})
-		return vid
-	}
-
 	youTubeObjects(titles) {
-		var stuff = []
+		var trailers = []
 		titles.map((title) => {
-			
 			YTSearch({key: API_KEY, term: title}, (videos) => {
 				console.log(videos[0])
-				stuff.push(videos[0])
-				this.setState({trailers: stuff})		
+				trailers.push(videos[0])
+				this.setState({trailers: trailers})		
 			})
-			return stuff
-		})
-		
+			return trailers
+		})	
 	}
 
 	componentDidMount() {
-		this.youTubeObjects(
-			["Manchester by the sea", "Moonlight", "La la land", "moana"])
+		this.trailers()
 	}
 
 	render() {
-	if(this.state.trailers) {
-		console.log("render:" + this.state.trailers)
-		return (
+		if(this.state.trailers) {
+			return (
 				<div>
-				{/*{JSON.stringify(this.movieTitles())}*/}
-				{/*<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />*/}
-				<VideoList 
-					trailers={this.state.trailers} />
-			</div>
-		)
-			}
-			else {
-				return (
-					<div>Loading...</div>
-				)
-			}
-	}
+					{<SearchBar onSearchTermChanged={term => this.videoSearch(term)} />}
+					<VideoList trailers={this.state.trailers} />
+				</div>
+			)
+				}
+				else {
+					return (
+						<div>Loading...</div>
+					)
+				}
+		}
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'))

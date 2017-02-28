@@ -1,6 +1,6 @@
 .search-bar {
 	margin: 20px;
-	text-align: : center;
+	text-align: center;
 }
 
 .search-bar input {
@@ -8,25 +8,30 @@
 }
 
 .video-item img {
-	max-width: 64px;
+	max-width: 128px;
 }
 
 .video-detail .details {
-	margin-top: 10px;
-	padding:10px;
+	margin-bottom: 10px;
 	border: 1px solid #ddd;
-	border-radius: 4px;
+	font: Verdana, sans-serif;
+	font-size: 30px;
+	/*font-family: Georgia;*/
+}
+
+.video-detail:hover {
+	background-color: #eee;
 }
 
 .list-group-item {
-	cursor: : pointer;
+	cursor:pointer;
 }
 
 .list-group-item:hover {
 	background-color: #eee;
 }
 
-.col-centered{
-	float: none;
-	margin: 0 auto;
+.list-container {
+	margin: auto;
+	text-align: center;
 }

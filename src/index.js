@@ -21,8 +21,8 @@ class App extends Component {
 	}
 
 	trailers() {
-		this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		return 
+		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
+		// return 
 
     	fetch(REQUEST_URL)
         .then(response => response.json() )
@@ -48,7 +48,6 @@ class App extends Component {
 		var trailers = []
 		titles.map((title) => {
 			YTSearch({key: API_KEY, term: title}, (videos) => {
-				console.log(videos[0])
 				trailers.push(videos[0])
 				this.setState({trailers: trailers})		
 			})

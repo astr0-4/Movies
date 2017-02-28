@@ -4,7 +4,24 @@ let fetch = require('isomorphic-fetch')
 
 app.use(cors())
 
-const REQUEST_URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2017-02-28&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723'
+const REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}&zip=M5V+3M6&api_key=g9rwkqkcx8u5t5b978as7723`
+
+var today = new Date()
+console.log(today)
+var date = formatDate()
+console.log(date)
+
+function formatDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
 app.get('/api', (req, res) => {
     fetch(REQUEST_URL)

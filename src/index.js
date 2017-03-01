@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import YTSearch from 'youtube-api-search'
 import SearchBar from './components/search_bar'
 import VideoList from './components/video_list'
 import VideoDetail from './components/video_detail'
 import Header from './components/header'
+// import SearchButton from './components/search_button'
 
 const BASE_REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}`
 const POSTAL_CODE = `&zip=M5V+3M6&`
@@ -34,8 +34,8 @@ class App extends Component {
 	}
 
 	getTrailers(postalCode) {
-		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		// return 
+		this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
+		return 
 		let url = BASE_REQUEST_URL + "&zip=" + postalCode + "&" + ST_API_KEY
     	fetch(url)
 			.then(response => response.json() )

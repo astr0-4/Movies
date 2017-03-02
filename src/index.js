@@ -4,11 +4,8 @@ import ReactDOM from 'react-dom'
 import SearchBar from './components/search_bar'
 import VideoList from './components/video_list'
 import VideoDetail from './components/video_detail'
-import Header from './components/header'
-// import SearchButton from './components/search_button'
 
 const BASE_REQUEST_URL = `http://data.tmsapi.com/v1.1/movies/showings?startDate=${formatDate()}`
-const POSTAL_CODE = `&zip=M5V+3M6&`
 const ST_API_KEY = `api_key=g9rwkqkcx8u5t5b978as7723`
 const YT_API_KEY = 'AIzaSyCj_uVTyjcKDV29wb0dQ_R_SfEC7UUUhSM'
 
@@ -34,15 +31,18 @@ class App extends Component {
 	}
 
 	getTrailers(postalCode) {
-		this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		return 
+		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
+		// return 
 		let url = BASE_REQUEST_URL + "&zip=" + postalCode + "&" + ST_API_KEY
+		console.log(url)
     	fetch(url)
 			.then(response => response.json() )
 			.then(responseData => {
+				console.log(responseData)
 				var titles = responseData.map((movie) => {
 					return movie.title
 				})
+				console.log(titles)
 				return titles
 			})
 			.then(movies => {
@@ -67,10 +67,10 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this.trailerSearch("V2B+4A6")
+		// this.searchForTrailers("V2B+4A6")
 	}
 
-	trailerSearch(postalCode) {
+	searchForTrailers(postalCode) {
 		this.getTrailers(postalCode)
 	}
 
@@ -78,7 +78,7 @@ class App extends Component {
 		if (this.state.trailers) {
 			return (
 				<div>
-					<SearchBar onSearchTermChanged={postalCode => this.trailerSearch(postalCode)} />
+					<SearchBar onSubmit={postalCode => this.searchForTrailers(postalCode)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
 				)

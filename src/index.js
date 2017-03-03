@@ -25,14 +25,17 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { 
+		this.state = {
 			trailers: []
 		}
+
+		this.getTrailers = this.getTrailers.bind(this)
+		this.youTubeObjects = this.youTubeObjects.bind(this)
 	}
 
 	getTrailers(postalCode) {
 		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		// return 
+		// return
 		let url = BASE_REQUEST_URL + "&zip=" + postalCode + "&" + ST_API_KEY
 		console.log(url)
     	fetch(url)
@@ -70,7 +73,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// this.getTrailers("V2B+4A6")
+		this.getTrailers("V2B+4A6")
 	}
 
 	render() {

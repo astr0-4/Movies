@@ -50,7 +50,7 @@ class App extends Component {
 					return movie + " Trailer"
 				})
 				var theMovies = this.youTubeObjects(movieTrailers)
-				this.setState({trailers: theMovies})
+				// this.setState({trailers: theMovies})
 			})
 			.catch(error => {
 				console.log('Error: ', error)
@@ -62,23 +62,22 @@ class App extends Component {
 			return fetch(`https://www.googleapis.com/youtube/v3/search/?part=snippet&key=${YT_API_KEY}&q=${title}&type=video`)
 				.then(response => response.json())
 				.then(data => data.items[0])
+				.catch(error => {
+					console.log('Error: ', error)
+				})
 		})
 		Promise.all(promises).then(items => this.setState({trailers: items}))
 	}
 
 	componentDidMount() {
-		// this.searchForTrailers("V2B+4A6")
-	}
-
-	searchForTrailers(postalCode) {
-		this.getTrailers(postalCode)
+		// this.getTrailers("V2B+4A6")
 	}
 
 	render() {
 		if (this.state.trailers) {
 			return (
 				<div>
-					<SearchBar onSubmit={postalCode => this.searchForTrailers(postalCode)} />
+					<SearchBar onSubmit={postalCode => this.getTrailers(postalCode)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
 				)

@@ -21,6 +21,7 @@ class SearchBar extends Component {
 
 	onSubmit(event) {
 		console.log("term " + this.state.term)
+		console.log("event:" + event)
 		this.props.onSubmit(this.state.term)
 	}
 

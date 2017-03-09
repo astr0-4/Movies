@@ -2,19 +2,19 @@ import React from 'react'
 import VideoDetail from './video_detail'
 
 const VideoList = (props) => {
-	if (props.trailers) {
-		const videoItems = props.trailers.map((trailer, index) => {
-			return <VideoDetail video={trailer} key={index}/>
+	if (props.movies) {
+		const videoItems = props.movies.map((movie, index) => {
+			console.log(movie.youTubeVideo)
+			return <VideoDetail video={movie.youTubeVideo} key={index}/>
 		})
-			// <div className="col-md-12">
 	return (
 		<div className="row">
-		<div className="col-md-12">
-			<ul>
-				{videoItems}
-			</ul>
+			<div className="col-md-12">
+				<ul>
+					{videoItems}
+				</ul>
 			</div>
-			</div>
+		</div>
 	)
 	}
 }

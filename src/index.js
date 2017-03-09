@@ -34,8 +34,8 @@ class App extends Component {
 	}
 
 	getTrailers(postalCode) {
-		// this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
-		// return
+		this.youTubeObjects(["Manchester by the sea", "Moonlight", "La la land", "moana"])
+		return
 		let url = BASE_REQUEST_URL + "&zip=" + postalCode + "&" + ST_API_KEY
 		console.log(url)
     	fetch(url)
@@ -53,7 +53,6 @@ class App extends Component {
 					return movie + " Trailer"
 				})
 				var theMovies = this.youTubeObjects(movieTrailers)
-				// this.setState({trailers: theMovies})
 			})
 			.catch(error => {
 				console.log('Error: ', error)
@@ -80,7 +79,7 @@ class App extends Component {
 		if (this.state.trailers) {
 			return (
 				<div>
-					<SearchBar onSubmit={postalCode => this.getTrailers(postalCode)} />
+					<SearchBar getTrailers={postalCode => this.getTrailers(postalCode)} />
 					<VideoList trailers={this.state.trailers} />
 				</div>
 				)

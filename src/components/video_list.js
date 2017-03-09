@@ -6,14 +6,16 @@ const VideoList = (props) => {
 		const videoItems = props.trailers.map((trailer, index) => {
 			return <VideoDetail video={trailer} key={index}/>
 		})
+			// <div className="col-md-12">
 	return (
-		<div className="container">    
+		<div className="row">
+		<div className="col-md-12">
 			<ul>
 				{videoItems}
 			</ul>
-		</div>
+			</div>
+			</div>
 	)
 	}
 }
-
 export default VideoList

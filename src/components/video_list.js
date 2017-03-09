@@ -4,8 +4,8 @@ import VideoDetail from './video_detail'
 const VideoList = (props) => {
 	if (props.movies) {
 		const videoItems = props.movies.map((movie, index) => {
-			console.log(movie.youTubeVideo)
-			return <VideoDetail video={movie.youTubeVideo} key={index}/>
+			console.log("videoList:", movie)
+			return <VideoDetail movie={movie} key={index}/>
 		})
 	return (
 		<div className="row">

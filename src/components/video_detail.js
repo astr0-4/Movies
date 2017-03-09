@@ -1,10 +1,11 @@
 import React from 'react'
 
-const VideoDetail = ({video}) => {
-	if (!video) {
+const VideoDetail = ({movie}) => {
+	console.log(movie)
+	if (!movie) {
 		return <div>Loading...</div>
 	}
-	const videoId = video.id.videoId
+	const videoId = movie.youTubeVideo.id.videoId
 	const url = `https://www.youtube.com/embed/${videoId}`
 	return (
 		<div className="row">
@@ -17,7 +18,7 @@ const VideoDetail = ({video}) => {
 		</div>
 		<div className="col-md-4">
 			<div className="details">
-				<h6>{video.snippet.title}</h6>
+				<h6>{movie.title}</h6>
 			</div>
 			</div>
 		</div>

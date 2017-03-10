@@ -18,7 +18,8 @@ const VideoDetail = ({movie}) => {
 		</div>
 		<div className="col-md-4">
 			<div className="details">
-				<h6>{movie.title}</h6>
+				<h4>{movie.title}</h4>
+				<p>{movie.description}</p>
 			</div>
 			</div>
 		</div>

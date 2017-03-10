@@ -34,7 +34,7 @@ class App extends Component {
 				var movies = responseData.map((movieItem) => {
 					var movie = {
 						title: movieItem.title,
-						theatre: movieItem.theatre,
+						theatre: movieItem.showtimes,
 						description: movieItem.shortDescription,
 						youTubeVideo: null
 					}

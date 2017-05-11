@@ -6,11 +6,13 @@
 .search-bar {
 	margin: 20px;
 	text-align: center;
+	margin-left: 200px;
 }
 
 .search-bar input {
 	width: 100px;
 	margin-right: 20px;
+	padding-top: 20px;
 }
 
 .search-bar input:focus {
@@ -30,16 +32,13 @@
 	border: none;
 	box-shadow: none;
 	color: #E0E2DB;
-	margin-top: 30px;
 
 	width: 30%;
 	height: 50px;
 	font-size: 15pt;
 	border-radius: 5px;
-
+	margin-bottom: 10px;
 }
-
-
 
 .search-button:active {
 	background: #525E59;

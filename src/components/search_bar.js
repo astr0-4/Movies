@@ -12,13 +12,19 @@ class SearchBar extends Component {
 
 	render() {
 		return (
-			<div className="search-bar">
-				<h1>Enter your postal code to find movies playing near you</h1>
-				<input type="text" value={this.state.term}
-					onChange={event => this.onInputChange(event.target.value)} />
-				<div>
+			<div>
+			<div className="search-bar row">
+			<h1>Enter your postal code to find movies playing near you</h1>
+			</div>
+			<div className="row">
+				<div className="col-md-6">
+					<input type="text" value={this.state.term}
+						onChange={event => this.onInputChange(event.target.value)} />
+				</div>
+				<div className="col-md-6">
 					<SearchButton searchForTrailers={postalCode => this.onClick()} />
 				</div>
+			</div>
 			</div>
 		)
 	}
